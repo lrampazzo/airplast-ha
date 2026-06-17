@@ -1,0 +1,3136 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "O.Erre Web Service",
+    "version": "v1"
+  },
+  "paths": {
+    "/Device/change-mode": {
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "summary": "Send change working mode command of device. Can be also used to change Fan speed and Humidity level.",
+        "requestBody": {
+          "description": "The request data parameters",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeModeRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeModeRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeModeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Device/apply-config": {
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "summary": "Apply role configuration to provided devices of the house.\r\nIf house has multiple zones, all of them are configured",
+        "requestBody": {
+          "description": "The house to config",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/House"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/House"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/House"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int64"
+                  }
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Device/apply-config-force-unique": {
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "summary": "Apply role configuration to provided devices of the house.\r\nForces the house to be configured as unique zone, removing zones",
+        "requestBody": {
+          "description": "The house to config",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/House"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/House"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/House"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int64"
+                  }
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Device/device-status": {
+      "get": {
+        "tags": [
+          "Device"
+        ],
+        "summary": "Get the last device status packet of the provided device",
+        "parameters": [
+          {
+            "name": "deviceSerialNumber",
+            "in": "query",
+            "description": "Device serial number",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusPacket"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Device/house-devices-status": {
+      "get": {
+        "tags": [
+          "Device"
+        ],
+        "summary": "Gets the house device status.",
+        "parameters": [
+          {
+            "name": "houseId",
+            "in": "query",
+            "description": "The house identifier.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HouseDevicesInfo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Device/reset-filter": {
+      "get": {
+        "tags": [
+          "Device"
+        ],
+        "summary": "Sends the reset filter command.",
+        "parameters": [
+          {
+            "name": "deviceSerialNumber",
+            "in": "query",
+            "description": "The device serial number.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Device/reset-device": {
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "summary": "Sends the reset command to the specified device.\r\nAfter a successful reset the stored Role is cleared.",
+        "description": "Example JSON:\r\n{\r\n  \"deviceSerialNumber\": \"441793586C80\",\r\n  \"resetType\": \"DeviceReset\"\r\n}",
+        "requestBody": {
+          "description": "The reset request containing device serial number and reset type, sent as JSON in the request body.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetDeviceRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetDeviceRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetDeviceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Device/send-device-config": {
+      "get": {
+        "tags": [
+          "Device"
+        ],
+        "summary": "Sends the device configuration.",
+        "parameters": [
+          {
+            "name": "deviceSn",
+            "in": "query",
+            "description": "The device sn.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/houses": {
+      "get": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Gets the houses of the current user.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/House"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/configured-houses": {
+      "get": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Get configured (with at least one master device) houses of the current user",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/House"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/house-info": {
+      "get": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Get the house information of the provided house id",
+        "parameters": [
+          {
+            "name": "houseId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/House"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/house-devices": {
+      "get": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Get the house devices of the provided house id",
+        "parameters": [
+          {
+            "name": "houseId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/House"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/add-house": {
+      "post": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Adds a new house to the current user.",
+        "requestBody": {
+          "description": "The request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddHouseRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddHouseRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddHouseRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/House"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/houses-info": {
+      "get": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Gets the user houses information.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HouseInfo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/house-complete-info": {
+      "get": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Gets the user house information.",
+        "parameters": [
+          {
+            "name": "houseId",
+            "in": "query",
+            "description": "The house identifier.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/House"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/rename-house": {
+      "post": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Renames the house.",
+        "requestBody": {
+          "description": "The house rename request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenameHouseRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenameHouseRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenameHouseRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/set-house-timezone": {
+      "post": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Sets the house timezone.",
+        "requestBody": {
+          "description": "The house timezone set request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetHouseTimezoneRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetHouseTimezoneRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetHouseTimezoneRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/house": {
+      "delete": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Deletes the provided house.",
+        "parameters": [
+          {
+            "name": "houseId",
+            "in": "query",
+            "description": "The house identifier.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/add-zone": {
+      "post": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Adds the new zone with provided rooms.",
+        "requestBody": {
+          "description": "The request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewZoneWithRoomsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewZoneWithRoomsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewZoneWithRoomsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zone"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/user-zones": {
+      "get": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Gets the list of the zones of the logged user.",
+        "parameters": [
+          {
+            "name": "houseId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Zone"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/delete-zone": {
+      "delete": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Deletes the provided zone.",
+        "parameters": [
+          {
+            "name": "zoneId",
+            "in": "query",
+            "description": "The zone unique identifier.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/House/zone-devices": {
+      "get": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Gets the zone devices.",
+        "parameters": [
+          {
+            "name": "zoneId",
+            "in": "query",
+            "description": "The zone identifier.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Device"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/rename-zone": {
+      "post": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Renames the zone.",
+        "requestBody": {
+          "description": "The zone rename request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenameZoneRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenameZoneRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenameZoneRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/user-rooms": {
+      "get": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Gets the list of the rooms of the logged user.",
+        "parameters": [
+          {
+            "name": "houseId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Room"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/user-free-rooms": {
+      "get": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Gets the list of the rooms of the logged user.",
+        "parameters": [
+          {
+            "name": "houseId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Room"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/add-device-room": {
+      "post": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Adds the a new ghost device to a room.",
+        "requestBody": {
+          "description": "The request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddNewDeviceRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddNewDeviceRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddNewDeviceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Device"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/rename-device": {
+      "post": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Renames the device.",
+        "requestBody": {
+          "description": "The device rename request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenameDeviceRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenameDeviceRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenameDeviceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/device-info": {
+      "get": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Gets the device information.",
+        "parameters": [
+          {
+            "name": "encryptedDeviceInfo",
+            "in": "query",
+            "description": "The encrypted device info.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/House/house-config-auto": {
+      "get": {
+        "tags": [
+          "House"
+        ],
+        "summary": "Retrive the automatic configuration of the provided house.",
+        "parameters": [
+          {
+            "name": "houseId",
+            "in": "query",
+            "description": "The house identifier.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "forceUniqueZone",
+            "in": "query",
+            "description": "If consider the house as unique zone, even if it has zones.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/House"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Schedule/{deviceId}": {
+      "get": {
+        "tags": [
+          "Schedule"
+        ],
+        "summary": "Retrieves the schedule for a given device, including all its time slots.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "The id of the device.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Schedule"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Schedule/{deviceId}/timeslots": {
+      "post": {
+        "tags": [
+          "Schedule"
+        ],
+        "summary": "Adds a new time slot to the device's schedule. Creates a new schedule if one doesn't exist.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "The id of the device.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The time slot to add.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeSlot"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeSlot"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeSlot"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSlotModificationResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Schedule/{deviceId}/timeslots/{timeSlotId}": {
+      "put": {
+        "tags": [
+          "Schedule"
+        ],
+        "summary": "Updates an existing time slot in the device's schedule.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "The id of the device.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "timeSlotId",
+            "in": "path",
+            "description": "The ID of the time slot to update.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The updated time slot information.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeSlot"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeSlot"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeSlot"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSlotModificationResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Schedule"
+        ],
+        "summary": "Deletes a specific time slot from the device's schedule. Deletes the schedule if no time slots remain.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "The id of the device.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "timeSlotId",
+            "in": "path",
+            "description": "The ID of the time slot to delete.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSlotModificationResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/authenticate": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Authenticates the specified user.",
+        "requestBody": {
+          "description": "The user login info.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns user info and session token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error executing request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/feature-flags": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Gets the current feature flags configuration.",
+        "responses": {
+          "200": {
+            "description": "Returns the feature flags configuration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeatureFlagsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/register": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Registers a new user.",
+        "requestBody": {
+          "description": "The user register info.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequestWs"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequestWs"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequestWs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns user info and session token."
+          },
+          "400": {
+            "description": "Username already taken.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/confirmregistration": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Confirms the registration.",
+        "requestBody": {
+          "description": "The request body UserServices.Models.Users.ConfirmRegisterRequest",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmRegisterRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmRegisterRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmRegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Registration confirmed."
+          },
+          "400": {
+            "description": "Token invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/askrecoverpassword": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Recovers the password of the provided user.",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "The username of the user to recover password.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password restore request executed succesfully."
+          },
+          "400": {
+            "description": "User not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/recoverpassword": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Recovers the password.",
+        "requestBody": {
+          "description": "The request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoverPasswordRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoverPasswordRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoverPasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/refresh-token": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Refreshes the user token.\r\nUsed to extend token expiration, when user use the application",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenRefreshResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/token-info": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Gets the token information.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenInfoResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/user-details": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Gets the user details",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/update-details": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Gets the user details",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFirstLastNameRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFirstLastNameRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFirstLastNameRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Users/update-password": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Updates the user password.",
+        "requestBody": {
+          "description": "The request data.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/delete": {
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Deletes the user.",
+        "requestBody": {
+          "description": "The user password.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/change-email": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Changes the user email.",
+        "requestBody": {
+          "description": "The request informations.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeUsernameRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeUsernameRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeUsernameRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/complete-change-email": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Completes the change email.",
+        "requestBody": {
+          "description": "The short token.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/new-changeusername-operation-token": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Sends the new operation token of change email operation process to the user, by email.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/new-operation-token": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Sends the new operation token to the user, by email.",
+        "requestBody": {
+          "description": "The new operation token request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewOperationTokenRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewOperationTokenRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewOperationTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddHouseRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "latitude": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "timezone": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddNewDeviceRequest": {
+        "required": [
+          "deviceName",
+          "encryptedDeviceInfo",
+          "houseId",
+          "roomName"
+        ],
+        "type": "object",
+        "properties": {
+          "deviceName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets or sets the name of the device."
+          },
+          "encryptedDeviceInfo": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets or sets the encrypted device information."
+          },
+          "roomName": {
+            "$ref": "#/components/schemas/RoomNames"
+          },
+          "houseId": {
+            "type": "integer",
+            "description": "Gets or sets the house identifier where the rooms belongs to.",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AirQuality": {
+        "enum": [
+          "VeryGood",
+          "Good",
+          "Medium",
+          "Poor",
+          "Bad"
+        ],
+        "type": "string"
+      },
+      "AuthenticateRequest": {
+        "required": [
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthenticateResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "completeName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "jwtToken": {
+            "type": "string",
+            "nullable": true
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "userLevel": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChangeModeRequest": {
+        "type": "object",
+        "properties": {
+          "deviceSerialNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "operatingMode": {
+            "$ref": "#/components/schemas/OperatingMode"
+          },
+          "fanSpeed": {
+            "$ref": "#/components/schemas/FanSpeed"
+          },
+          "humidityLevel": {
+            "$ref": "#/components/schemas/HumidityLevel"
+          },
+          "lightSensorLevel": {
+            "$ref": "#/components/schemas/LightSensorLevelEnum"
+          },
+          "isScheduleMode": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChangeUsernameRequest": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "newUsername": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConfirmRegisterRequest": {
+        "required": [
+          "shortToken",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "shortToken": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DayOfWeek": {
+        "enum": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "type": "string"
+      },
+      "Device": {
+        "required": [
+          "name",
+          "serialNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Gets or sets the device identifier.",
+            "format": "int64"
+          },
+          "deviceType": {
+            "$ref": "#/components/schemas/DeviceType"
+          },
+          "deviceSubtype": {
+            "$ref": "#/components/schemas/DeviceSubtype"
+          },
+          "serialNumber": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets or sets the device serial."
+          },
+          "userId": {
+            "type": "integer",
+            "description": "Gets or sets the user identifier that owns the device.",
+            "format": "int64"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets or sets the ghost, user defined, name."
+          },
+          "role": {
+            "$ref": "#/components/schemas/DeviceRole"
+          },
+          "zoneIndex": {
+            "type": "integer",
+            "description": "Gets or sets the index of the zone.",
+            "format": "int32",
+            "nullable": true
+          },
+          "installation": {
+            "type": "string",
+            "description": "Gets or sets the datetime of device installations.",
+            "format": "date-time"
+          },
+          "radioFwVersion": {
+            "type": "string",
+            "description": "Radio module firmware version.",
+            "nullable": true
+          },
+          "microFwVersion": {
+            "type": "string",
+            "description": "Micro firmware version.",
+            "nullable": true
+          },
+          "radioAtCommandsFwVersion": {
+            "type": "string",
+            "description": "Gets or sets the radio at commands fw version.",
+            "nullable": true
+          },
+          "roomId": {
+            "type": "integer",
+            "description": "Gets or sets the room identifier the current device belongs to.",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeviceRole": {
+        "enum": [
+          "Master",
+          "SlaveEqualMaster",
+          "SlaveOppositeMaster",
+          "NotConfigured"
+        ],
+        "type": "string"
+      },
+      "DeviceSubtype": {
+        "enum": [
+          "None",
+          "Version100",
+          "Version160",
+          "Version200"
+        ],
+        "type": "string"
+      },
+      "DeviceType": {
+        "enum": [
+          "Ghost",
+          "Diamond",
+          "Icon",
+          "Gemini"
+        ],
+        "type": "string"
+      },
+      "FanSpeed": {
+        "enum": [
+          "Low",
+          "Medium",
+          "High",
+          "Night",
+          "Turbo"
+        ],
+        "type": "string"
+      },
+      "FeatureFlagsResponse": {
+        "type": "object",
+        "properties": {
+          "rememberMeLogin": {
+            "type": "boolean",
+            "description": "Indicates if the Remember Me login feature is enabled"
+          },
+          "resetDeviceEndpoint": {
+            "type": "boolean",
+            "description": "Indicates if the Reset Device endpoint is enabled"
+          },
+          "weeklyScheduler": {
+            "type": "boolean",
+            "description": "Indicates if the Weekly Scheduler feature is enabled"
+          },
+          "improvedRoomList": {
+            "type": "boolean",
+            "description": "Indicates if the improved room list display is enabled"
+          },
+          "turboMode": {
+            "type": "boolean",
+            "description": "Indicates if Turbo fan speed feature is globally enabled"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response model containing the current state of feature flags"
+      },
+      "FilterStatus": {
+        "enum": [
+          "Good",
+          "Medium",
+          "Bad"
+        ],
+        "type": "string"
+      },
+      "GeminiDeviceInfo": {
+        "type": "object",
+        "properties": {
+          "device": {
+            "$ref": "#/components/schemas/Device"
+          },
+          "statusPacket": {
+            "$ref": "#/components/schemas/StatusPacket"
+          }
+        },
+        "additionalProperties": false
+      },
+      "House": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "description": "Gets or sets the user identifier.",
+            "format": "int64"
+          },
+          "id": {
+            "type": "integer",
+            "description": "Gets or sets the house identifier.",
+            "format": "int64"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets or sets the name of the house."
+          },
+          "zones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zone"
+            },
+            "nullable": true
+          },
+          "rooms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Room"
+            },
+            "nullable": true
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/Schedule"
+          },
+          "hasZones": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasDevices": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "address": {
+            "type": "string",
+            "description": "Gets or sets the address.",
+            "nullable": true
+          },
+          "latitude": {
+            "type": "number",
+            "description": "Gets or sets the latitude of the house location.",
+            "format": "float",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "number",
+            "description": "Gets or sets the longitude of the house location.",
+            "format": "float",
+            "nullable": true
+          },
+          "timezone": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ianaTimezone": {
+            "maxLength": 64,
+            "type": "string",
+            "nullable": true
+          },
+          "currentHouseTime": {
+            "type": "string",
+            "description": "Gets the current house time based on UTC and the house timezone.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HouseDevicesInfo": {
+        "type": "object",
+        "properties": {
+          "zoneDevicesInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ZoneDeviceInfo"
+            },
+            "description": "Gets or sets the zone devices information.",
+            "nullable": true
+          },
+          "uniqueZoneStatusPacket": {
+            "$ref": "#/components/schemas/StatusPacket"
+          },
+          "uniqueZoneDevicesCount": {
+            "type": "integer",
+            "description": "Gets or sets the unique zone devices count.",
+            "format": "int32"
+          },
+          "masterSn": {
+            "type": "string",
+            "description": "Gets or sets the master sn.",
+            "nullable": true
+          },
+          "geminiDevicesInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GeminiDeviceInfo"
+            },
+            "description": "Gets or sets the gemini devices information.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HouseInfo": {
+        "type": "object",
+        "properties": {
+          "houseId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "houseName": {
+            "type": "string",
+            "nullable": true
+          },
+          "houseZonesCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "houseDevicesCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nonGeminiZones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zone"
+            },
+            "nullable": true
+          },
+          "nonGeminiDevices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Device"
+            },
+            "nullable": true
+          },
+          "roomsWithGeminiDevices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Room"
+            },
+            "nullable": true
+          },
+          "geminiDevices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Device"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HumidityLevel": {
+        "enum": [
+          "Dry",
+          "Normal",
+          "Moist"
+        ],
+        "type": "string"
+      },
+      "LightSensorLevelEnum": {
+        "enum": [
+          "NotAvailable",
+          "Off",
+          "Low",
+          "Medium"
+        ],
+        "type": "string"
+      },
+      "NewOperationTokenRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "userOperationType": {
+            "$ref": "#/components/schemas/UserOperationType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NewZoneWithRoomsRequest": {
+        "type": "object",
+        "properties": {
+          "zoneName": {
+            "type": "string",
+            "nullable": true
+          },
+          "houseId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "roomsId": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OperatingMode": {
+        "enum": [
+          "Smart",
+          "Auto",
+          "ManualHeatRecovery",
+          "Night",
+          "AwayHome",
+          "Surveillance",
+          "TimedExpulsion",
+          "Expulsion",
+          "Intake",
+          "MasterSlaveFlow",
+          "SlaveMasterFlow",
+          "Off"
+        ],
+        "type": "string"
+      },
+      "PacketType": {
+        "enum": [
+          "Connection",
+          "Status",
+          "Command",
+          "FwVersions",
+          "OutsideWeatherRequest",
+          "Unknown"
+        ],
+        "type": "string"
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {}
+      },
+      "RecoverPasswordRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "shortToken": {
+            "type": "string",
+            "nullable": true
+          },
+          "newPassword": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterRequestWs": {
+        "required": [
+          "firstName",
+          "lastName",
+          "legalNotesContent",
+          "marketingConsent",
+          "password",
+          "privacyPolicyConsent",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "lastName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "username": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "level": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "privacyPolicyConsent": {
+            "type": "boolean"
+          },
+          "legalNotesContent": {
+            "type": "boolean"
+          },
+          "marketingConsent": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RenameDeviceRequest": {
+        "type": "object",
+        "properties": {
+          "deviceId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "newName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RenameHouseRequest": {
+        "type": "object",
+        "properties": {
+          "houseId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "newName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RenameZoneRequest": {
+        "type": "object",
+        "properties": {
+          "zoneId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "newName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResetDeviceRequest": {
+        "type": "object",
+        "properties": {
+          "deviceSerialNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "resetType": {
+            "$ref": "#/components/schemas/ResetType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResetType": {
+        "enum": [
+          "ConnectionReset",
+          "DeviceReset"
+        ],
+        "type": "string"
+      },
+      "Room": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Gets or sets the room identifier.",
+            "format": "int64"
+          },
+          "name": {
+            "$ref": "#/components/schemas/RoomNames"
+          },
+          "houseId": {
+            "type": "integer",
+            "description": "Gets or sets the house identifier.",
+            "format": "int64"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "Gets or sets the user identifier that owns the room.",
+            "format": "int64"
+          },
+          "devices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Device"
+            },
+            "description": "Gets or sets the devices associated to the current room.",
+            "nullable": true
+          },
+          "roomDevicesCount": {
+            "type": "integer",
+            "description": "Gets the room devices count.",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoomNames": {
+        "enum": [
+          "Kitchen",
+          "LivingRoom",
+          "Bedroom",
+          "Bathroom",
+          "DinningRoom",
+          "ChildrenRoom",
+          "Bathroom2",
+          "Bathroom3",
+          "Bedroom2",
+          "Bedroom3",
+          "Bedroom4",
+          "Study",
+          "Laundry",
+          "Garage",
+          "Basement",
+          "Attic",
+          "GenericRoom1",
+          "GenericRoom2"
+        ],
+        "type": "string"
+      },
+      "Schedule": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "zoneId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "houseId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "deviceId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "timeSlots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TimeSlot"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ScheduleState": {
+        "enum": [
+          "NotAvailable",
+          "Off",
+          "On"
+        ],
+        "type": "string"
+      },
+      "SetHouseTimezoneRequest": {
+        "type": "object",
+        "properties": {
+          "houseId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "timezone": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StatusPacket": {
+        "type": "object",
+        "properties": {
+          "packetType": {
+            "$ref": "#/components/schemas/PacketType"
+          },
+          "deviceType": {
+            "$ref": "#/components/schemas/DeviceType"
+          },
+          "deviceSubtype": {
+            "$ref": "#/components/schemas/DeviceSubtype"
+          },
+          "deviceSerialNumber": {
+            "type": "string",
+            "description": "Device Unique identifier",
+            "nullable": true
+          },
+          "operatingMode": {
+            "$ref": "#/components/schemas/OperatingMode"
+          },
+          "fanSpeed": {
+            "$ref": "#/components/schemas/FanSpeed"
+          },
+          "humidityLevel": {
+            "$ref": "#/components/schemas/HumidityLevel"
+          },
+          "temperature": {
+            "type": "integer",
+            "description": "Temperature detected",
+            "format": "int32"
+          },
+          "humidity": {
+            "type": "integer",
+            "description": "Humidity detected",
+            "format": "int32"
+          },
+          "airQuality": {
+            "$ref": "#/components/schemas/AirQuality"
+          },
+          "humidityAlarm": {
+            "type": "boolean",
+            "description": "If Humidity is above the set level"
+          },
+          "filtersStatus": {
+            "$ref": "#/components/schemas/FilterStatus"
+          },
+          "nightAlarm": {
+            "type": "boolean",
+            "description": "If it's night time"
+          },
+          "deviceRole": {
+            "$ref": "#/components/schemas/DeviceRole"
+          },
+          "lastOperatingMode": {
+            "$ref": "#/components/schemas/OperatingMode"
+          },
+          "lightSensorLevel": {
+            "$ref": "#/components/schemas/LightSensorLevelEnum"
+          },
+          "signalStrenght": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isScheduled": {
+            "$ref": "#/components/schemas/ScheduleState"
+          },
+          "isTurboAvailable": {
+            "type": "boolean",
+            "description": "Gets or sets whether Turbo fan speed is available for this device.\r\nComputed server-side."
+          }
+        },
+        "additionalProperties": false
+      },
+      "TimeSlot": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dayOfWeek": {
+            "$ref": "#/components/schemas/DayOfWeek"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-span"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-span"
+          },
+          "operatingMode": {
+            "$ref": "#/components/schemas/OperatingMode"
+          },
+          "fanSpeed": {
+            "$ref": "#/components/schemas/FanSpeed"
+          },
+          "humidityLevel": {
+            "$ref": "#/components/schemas/HumidityLevel"
+          },
+          "lightSensorLevel": {
+            "$ref": "#/components/schemas/LightSensorLevelEnum"
+          },
+          "scheduleId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TimeSlotModificationResult": {
+        "type": "object",
+        "properties": {
+          "modifiedTimeSlot": {
+            "$ref": "#/components/schemas/TimeSlot"
+          },
+          "activeTimeSlot": {
+            "$ref": "#/components/schemas/TimeSlot"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TokenInfoResponse": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "validTo": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TokenRefreshResponse": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "validTo": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "token": {
+            "type": "string",
+            "nullable": true
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateFirstLastNameRequest": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdatePasswordRequest": {
+        "type": "object",
+        "properties": {
+          "oldPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "newPassword": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "userSince": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserOperationType": {
+        "enum": [
+          "ConfirmAccount",
+          "RecoverPassword",
+          "ChangeUsername"
+        ],
+        "type": "string"
+      },
+      "Zone": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Gets or sets the zone identifier.",
+            "format": "int64"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets or sets the zone name."
+          },
+          "houseId": {
+            "type": "integer",
+            "description": "Gets or sets the house identifier.\r\nUsed to Not null relation",
+            "format": "int64"
+          },
+          "rooms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Room"
+            },
+            "nullable": true
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/Schedule"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ZoneDeviceInfo": {
+        "type": "object",
+        "properties": {
+          "zone": {
+            "$ref": "#/components/schemas/Zone"
+          },
+          "statusPacket": {
+            "$ref": "#/components/schemas/StatusPacket"
+          },
+          "zoneDevicesCount": {
+            "type": "integer",
+            "description": "Gets or sets the zone devices count.",
+            "format": "int32"
+          },
+          "masterSn": {
+            "type": "string",
+            "description": "Gets or sets the master sn.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Device"
+    },
+    {
+      "name": "House"
+    },
+    {
+      "name": "Schedule"
+    },
+    {
+      "name": "Users"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Airplast",
+        "description": "Enter your Airplast account credentials.",
+        "data": {
+          "username": "Username (email)",
+          "password": "Password",
+          "base_url": "Backend URL (optional)"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate Airplast",
+        "description": "Your Airplast session has expired. Enter your password to reconnect.",
+        "data": {
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid username or password.",
+      "cannot_connect": "Cannot connect to the Airplast backend.",
+      "unknown": "An unexpected error occurred."
+    },
+    "abort": {
+      "already_configured": "This Airplast account is already configured.",
+      "reauth_successful": "Re-authentication was successful."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Airplast options",
+        "data": {
+          "polling_interval": "Polling interval (seconds, minimum 30)",
+          "verify_ssl": "Verify TLS certificate (disable only for development)"
+        }
+      }
+    }
+  }
+}

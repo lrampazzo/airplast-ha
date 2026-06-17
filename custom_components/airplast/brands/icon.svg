@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Source: resources/assets/public/assets/logo_menu.svg -->
+<svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 143.5 146.8" style="enable-background:new 0 0 143.5 146.8;" xml:space="preserve">
+<path fill="#6DB240" d="M75.9,28h-7.6L31.2,98.8h7.1L48,80.1h48.1l9.7,18.7h7.1L75.9,28z M51.2,74.2l20.9-40l20.9,40H51.2z"/>
+<circle fill="#00718F" cx="40.6" cy="112.7" r="8.7"/>
+<circle fill="#6DB240" cx="72.2" cy="112.7" r="8.7"/>
+<circle fill="#00718F" cx="104" cy="112.7" r="8.7"/>
+</svg>

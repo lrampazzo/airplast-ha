@@ -1,0 +1,14 @@
+{
+  "domain": "airplast",
+  "name": "Airplast",
+  "version": "0.1.0",
+  "config_flow": true,
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "documentation": "https://github.com/lrampazzo/airplast-ha",
+  "issue_tracker": "https://github.com/lrampazzo/airplast-ha/issues",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": ["@lrampazzo"],
+  "homekit": {}
+}
