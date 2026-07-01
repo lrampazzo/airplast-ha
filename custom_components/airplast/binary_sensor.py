@@ -34,9 +34,9 @@ BINARY_SENSORS: tuple[AirplastBinarySensorEntityDescription, ...] = (
         value_fn=lambda s: s.humidityAlarm,
     ),
     AirplastBinarySensorEntityDescription(
-        key="night_alarm",
-        name="Night Alarm",
-        device_class=BinarySensorDeviceClass.PROBLEM,
+        key="twilight_sensor",
+        name="Twilight Sensor",
+        icon="mdi:weather-sunset-down",
         value_fn=lambda s: s.nightAlarm,
     ),
     AirplastBinarySensorEntityDescription(

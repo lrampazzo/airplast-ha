@@ -10,7 +10,7 @@ The integration communicates with the Airplast AirApp cloud backend — the same
 ## Features
 
 - **Sensors** — temperature, humidity, air quality, operating mode, fan speed, humidity level, filter status, signal strength, schedule state
-- **Binary sensors** — humidity alarm, night alarm, turbo availability
+- **Binary sensors** — humidity alarm, twilight sensor (day/night detection), turbo availability
 - **Fan controls** — turn on/off and switch between all Airplast operating modes (Smart, Auto, Night, Away/Home, Surveillance, Expulsion, Intake, …)
 - **Cloud polling** — configurable interval (default 60 s, minimum 30 s)
 - **Config flow** — set up entirely from the Home Assistant UI, no YAML required
@@ -94,7 +94,7 @@ Each Airplast device appears as a single HA device entry identified by its seria
 | Entity | Device class |
 |---|---|
 | Humidity Alarm | `moisture` |
-| Night Alarm | `problem` |
+| Twilight Sensor | — |
 | Turbo Available | — |
 
 ### Fan

@@ -209,9 +209,9 @@ async def test_binary_sensor_humidity_alarm_off() -> None:
     assert bs.is_on is False
 
 
-async def test_binary_sensor_night_alarm() -> None:
+async def test_binary_sensor_twilight_sensor() -> None:
     coord = _coordinator_with_status(_make_full_status(nightAlarm=True))
-    bs = _get_binary(coord, "night_alarm")
+    bs = _get_binary(coord, "twilight_sensor")
     assert bs.is_on is True
 
 
